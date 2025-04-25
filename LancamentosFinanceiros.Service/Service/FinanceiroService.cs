@@ -20,6 +20,11 @@ namespace LancamentosFinanceiros.Service.Service
 
         public async Task<Financeiro> Adicionar(Financeiro financeiro)
         {
+            if(financeiro.Data_Lancamento < DateTime.Now.AddDays(30))
+            {
+                throw new ArgumentException("A data de lançamento deve ser nos últimos 30 dias.");
+            }
+
             return await _financeiroRepository.Adicionar(financeiro);
         }
 
