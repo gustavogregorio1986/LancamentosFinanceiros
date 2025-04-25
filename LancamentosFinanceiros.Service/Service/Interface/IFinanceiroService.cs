@@ -1,0 +1,16 @@
+﻿using LancamentosFinanceiros.Dominio.Dominio;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LancamentosFinanceiros.Service.Service.Interface
+{
+    public interface IFinanceiroService
+    {
+        Task<Financeiro> Adicionar(Financeiro financeiro);
+
+        Task<List<Financeiro>> ListarFinanceiros();
+    }
+}
