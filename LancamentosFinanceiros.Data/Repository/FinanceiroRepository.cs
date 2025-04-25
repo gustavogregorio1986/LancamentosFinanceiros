@@ -28,7 +28,11 @@ namespace LancamentosFinanceiros.Data.Repository
 
         public async Task<List<Financeiro>> ListarFinanceiros()
         {
-            return await _db.Financeiros.ToListAsync();
+            var trintaDiasAtras = DateTime.Now.AddDays(-30);
+            return await _db.Financeiros
+                .Where(x => x.Data_Lancamento >= trintaDiasAtras)
+                .ToListAsync();
+
         }
     }
 }

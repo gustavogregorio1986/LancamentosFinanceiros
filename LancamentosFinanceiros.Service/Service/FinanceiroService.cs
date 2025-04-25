@@ -28,9 +28,10 @@ namespace LancamentosFinanceiros.Service.Service
             return await _financeiroRepository.Adicionar(financeiro);
         }
 
-        public async Task<List<Financeiro>> ListarFinanceiros()
+        public async Task<List<Financeiro>> ListarFinanceirosDosUtimosTrintaDias()
         {
-            return await _financeiroRepository.ListarFinanceiros();
+            return await _financeiroRepository
+               .ListarFinanceiros();
         }
     }
 }
