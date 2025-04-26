@@ -1,11 +1,16 @@
+using AutoMapper;
 using LancamentosFinanceiros.Data.Context;
+using LancamentosFinanceiros.Data.Mapping;
 using LancamentosFinanceiros.Data.Repository;
 using LancamentosFinanceiros.Data.Repository.Interface;
 using LancamentosFinanceiros.Service.Service;
 using LancamentosFinanceiros.Service.Service.Interface;
 using Microsoft.EntityFrameworkCore;
+using LancamentosFinanceiros.Data.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(typeof(FinanceiroMapping));
 
 // Add services to the container.
 

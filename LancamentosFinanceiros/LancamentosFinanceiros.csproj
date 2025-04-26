@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.14">
       <PrivateAssets>all</PrivateAssets>
@@ -24,10 +26,6 @@
     <ProjectReference Include="..\LancamentosFinanceiros.Data\LancamentosFinanceiros.Data.csproj" />
     <ProjectReference Include="..\LancamentosFinanceiros.Dominio\LancamentosFinanceiros.Dominio.csproj" />
     <ProjectReference Include="..\LancamentosFinanceiros.Service\LancamentosFinanceiros.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
