@@ -4,6 +4,7 @@ using LancamentosFinanceiros.Dominio.Dominio;
 using LancamentosFinanceiros.Service.Service.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using LancamentosFinanceiros.Dominio.Exceptions;
 
 namespace LancamentosFinanceiros.Controllers
 {
@@ -33,6 +34,22 @@ namespace LancamentosFinanceiros.Controllers
                     string.IsNullOrWhiteSpace(financeiro.Cpf_cnpj))
                 {
                     return BadRequest("Campos de texto não podem ser vazios ou conter apenas espaços.");
+                }
+
+                decimal saldoAtual = await _financeiroService.ObterSaldoPorContaAsync(financeiro.Banco, financeiro.Tipo_de_conta, financeiro.Cpf_cnpj);
+
+                decimal novoSaldo = saldoAtual - financeiro.Valor_lancamento;
+
+                // Permite lançamentos futuros
+                if (financeiro.Data_Lancamento.Date < DateTime.Today)
+                {
+                    throw new RegraDeNegocioException("Não é permitido lançar em datas passadas.");
+                }
+
+                // 3. Verificar limite
+                if (novoSaldo < -20000.00m)
+                {
+                    return BadRequest("Operação não permitida: o saldo não pode ultrapassar R$ 20.000,00 negativos.");
                 }
 
                 var resultado = await _financeiroService.Adicionar(financeiro);

@@ -10,7 +10,10 @@ namespace LancamentosFinanceiros.Data.Repository.Interface
     public interface IFinanceiroRepository
     {
         Task<Financeiro> Adicionar(Financeiro financeiro);
-        
+
+        Task<decimal> ObterSaldoPorContaAsync(string banco, string tipoConta, string cpfCnpj);
+
+
         Task<List<Financeiro>> ListarFinanceiros();
     }
 }

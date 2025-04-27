@@ -35,5 +35,10 @@ namespace LancamentosFinanceiros.Service.Service
             return await _financeiroRepository
                .ListarFinanceiros();
         }
+
+        public async Task<decimal> ObterSaldoPorContaAsync(string banco, string tipoConta, string cpfCnpj)
+        {
+            return await _financeiroRepository.ObterSaldoPorContaAsync(banco, tipoConta, cpfCnpj);
+        }
     }
 }

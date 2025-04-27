@@ -11,6 +11,8 @@ namespace LancamentosFinanceiros.Service.Service.Interface
     {
         Task<Financeiro> Adicionar(Financeiro financeiro);
 
+        Task<decimal> ObterSaldoPorContaAsync(string banco, string tipoConta, string cpfCnpj);
+
         Task<List<Financeiro>> ListarFinanceiros();
     }
 }
