@@ -103,6 +103,35 @@ namespace LancamentosFinanceiros.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditarFinanceiro(Guid id, [FromBody] FinanceiroDTO financeiroDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            try
+            {
+                // Verificar se o ID não está no valor padrão
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("O ID fornecido é inválido.");
+                }
+
+                var financeiroAtualizado = await _financeiroService.EditarFinanceiroAsync(id, financeiroDto);
+
+                if (financeiroAtualizado == null)
+                {
+                    return NotFound("Financeiro não encontrado.");
+                }
+
+                return Ok(financeiroAtualizado);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

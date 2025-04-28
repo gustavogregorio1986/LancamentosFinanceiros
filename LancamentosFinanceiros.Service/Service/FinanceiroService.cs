@@ -1,4 +1,5 @@
-﻿using LancamentosFinanceiros.Data.Repository.Interface;
+﻿using LancamentosFinanceiros.Data.DTO;
+using LancamentosFinanceiros.Data.Repository.Interface;
 using LancamentosFinanceiros.Dominio.Dominio;
 using LancamentosFinanceiros.Service.Service.Interface;
 using System;
@@ -29,6 +30,39 @@ namespace LancamentosFinanceiros.Service.Service
             return await _financeiroRepository.Adicionar(financeiro);
         }
 
+        public async Task<FinanceiroDTO> EditarFinanceiroAsync(Guid id, FinanceiroDTO financeiroDto)
+        {
+            var financeiro = await _financeiroRepository.ObterPorIdAsync(id);
+
+            if (financeiro == null)
+            {
+                throw new ArgumentException("Financeiro não encontrado.");
+            }
+
+            // Atualize os campos com as informações do DTO
+            financeiro.Banco = financeiroDto.Banco;
+            financeiro.Tipo_de_conta = financeiroDto.Tipo_de_conta;
+            financeiro.Cpf_cnpj = financeiroDto.Cpf_cnpj;
+            financeiro.Data_Lancamento = financeiroDto.Data_Lancamento;
+            financeiro.Valor_lancamento = financeiroDto.Valor_lancamento;
+            financeiro.Tipo_pagamento = financeiroDto.Tipo_pagamento;
+            financeiro.Descricao = financeiroDto.Descricao;
+
+            // Salva as alterações no banco
+            await _financeiroRepository.AtualizarAsync(id, financeiroDto);
+
+            // Retorna o DTO atualizado
+            return new FinanceiroDTO
+            {
+                Banco = financeiro.Banco,
+                Tipo_de_conta = financeiro.Tipo_de_conta,
+                Cpf_cnpj = financeiro.Cpf_cnpj,
+                Data_Lancamento = financeiro.Data_Lancamento,
+                Valor_lancamento = financeiro.Valor_lancamento,
+                Tipo_pagamento = financeiro.Tipo_pagamento,
+                Descricao = financeiro.Descricao
+            };
+        }
 
         public async Task<List<Financeiro>> ListarFinanceiros()
         {

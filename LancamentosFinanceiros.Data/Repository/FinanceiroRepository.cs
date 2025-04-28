@@ -1,4 +1,5 @@
 ﻿using LancamentosFinanceiros.Data.Context;
+using LancamentosFinanceiros.Data.DTO;
 using LancamentosFinanceiros.Data.Repository.Interface;
 using LancamentosFinanceiros.Dominio.Dominio;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,32 @@ namespace LancamentosFinanceiros.Data.Repository
             return financeiro;
         }
 
+        public async Task<Financeiro> AtualizarAsync(Guid id, FinanceiroDTO financeiroDTO)
+        {
+            var financeiro = await _db.Financeiros.FindAsync(id);
+
+            if (financeiro == null)
+            {
+                // Se o financeiro não for encontrado, retorna um erro
+                throw new Exception("Financeiro não encontrado.");
+            }
+
+            // Atualize as propriedades do objeto 'financeiro'
+            financeiro.Descricao = financeiroDTO.Descricao;
+            financeiro.Banco = financeiroDTO.Banco;
+            financeiro.Tipo_de_conta = financeiroDTO.Tipo_de_conta;
+            financeiro.Cpf_cnpj = financeiroDTO.Cpf_cnpj;
+            financeiro.Valor_lancamento = financeiroDTO.Valor_lancamento;
+            financeiro.Tipo_pagamento = financeiroDTO.Tipo_pagamento;
+            financeiro.Data_Lancamento = financeiroDTO.Data_Lancamento;
+
+            _db.Financeiros.Update(financeiro);
+            await _db.SaveChangesAsync();
+
+            return financeiro;
+
+        }
+
         public async Task<List<Financeiro>> ListarFinanceiros()
         {
             var trintaDiasAtras = DateTime.Now.AddDays(-30);
@@ -33,6 +60,11 @@ namespace LancamentosFinanceiros.Data.Repository
                 .Where(x => x.Data_Lancamento >= trintaDiasAtras)
                 .ToListAsync();
 
+        }
+
+        public async Task<Financeiro> ObterPorIdAsync(Guid id)
+        {
+            return await _db.Financeiros.FindAsync(id);
         }
 
         public async Task<decimal> ObterSaldoPorContaAsync(string banco, string tipoConta, string cpfCnpj)

@@ -1,4 +1,5 @@
-﻿using LancamentosFinanceiros.Dominio.Dominio;
+﻿using LancamentosFinanceiros.Data.DTO;
+using LancamentosFinanceiros.Dominio.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace LancamentosFinanceiros.Service.Service.Interface
         Task<List<Financeiro>> ListarFinanceiros();
 
         Task<string> ObterTotalLancamentosDiaFormatadoAsync(string banco, string tipoConta, string cpfCnpj);
+
+        Task<FinanceiroDTO> EditarFinanceiroAsync(Guid id, FinanceiroDTO financeiroDto);
     }
 }

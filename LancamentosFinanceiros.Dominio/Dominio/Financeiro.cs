@@ -25,5 +25,33 @@ namespace LancamentosFinanceiros.Dominio.Dominio
         public string? Cpf_cnpj { get; set; }
 
         public decimal Valor_lancamento { get; set; }
+
+        public Financeiro()
+        {
+            
+        }
+
+        public Financeiro(string banco, string tipoDeConta, string cpfCnpj, DateTime dataLancamento, decimal valorLancamento, string tipoPagamento, string descricao)
+        {
+            Banco = banco;
+            Tipo_de_conta = tipoDeConta;
+            Cpf_cnpj = cpfCnpj;
+            Data_Lancamento = dataLancamento;
+            Valor_lancamento = valorLancamento;
+            Tipo_pagamento = tipoPagamento;
+            Descricao = descricao;
+        }
+
+        // Método para edição
+        public void Editar(string banco, string tipoDeConta, string cpfCnpj, DateTime dataLancamento, decimal valorLancamento, string tipoPagamento, string descricao)
+        {
+            Banco = banco;
+            Tipo_de_conta = tipoDeConta;
+            Cpf_cnpj = cpfCnpj;
+            Data_Lancamento = dataLancamento;
+            Valor_lancamento = valorLancamento;
+            Tipo_pagamento = tipoPagamento;
+            Descricao = descricao;
+        }
     }
 }
