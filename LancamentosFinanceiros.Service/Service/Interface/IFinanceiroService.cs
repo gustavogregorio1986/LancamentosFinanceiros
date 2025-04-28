@@ -14,5 +14,7 @@ namespace LancamentosFinanceiros.Service.Service.Interface
         Task<decimal> ObterSaldoPorContaAsync(string banco, string tipoConta, string cpfCnpj);
 
         Task<List<Financeiro>> ListarFinanceiros();
+
+        Task<string> ObterTotalLancamentosDiaFormatadoAsync(string banco, string tipoConta, string cpfCnpj);
     }
 }

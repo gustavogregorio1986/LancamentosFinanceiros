@@ -82,5 +82,27 @@ namespace LancamentosFinanceiros.Controllers
         {
             return await _financeiroService.ListarFinanceiros();
         }
+
+        [HttpGet]
+        [Route("ObterTotalLancamentosDia")]
+        public async Task<IActionResult> ObterTotalLancamentosDia(string banco, string tipoConta, string cpfCnpj)
+        {
+            if (string.IsNullOrWhiteSpace(banco) || string.IsNullOrWhiteSpace(tipoConta) || string.IsNullOrWhiteSpace(cpfCnpj))
+            {
+                return BadRequest("Os parâmetros não podem ser vazios.");
+            }
+
+            try
+            {
+                var totalFormatado = await _financeiroService.ObterTotalLancamentosDiaFormatadoAsync(banco, tipoConta, cpfCnpj);
+                return Ok(new { total = totalFormatado });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro interno do servidor: " + ex.Message);
+            }
+        }
+
+
     }
 }

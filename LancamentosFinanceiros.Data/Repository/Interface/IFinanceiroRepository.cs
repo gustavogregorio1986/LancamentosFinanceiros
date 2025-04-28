@@ -15,5 +15,7 @@ namespace LancamentosFinanceiros.Data.Repository.Interface
 
 
         Task<List<Financeiro>> ListarFinanceiros();
+
+        Task<decimal> ObterTotalLancamentosDiaAsync(DateTime data, string banco, string tipoConta, string cpfCnpj);
     }
 }

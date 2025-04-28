@@ -40,5 +40,12 @@ namespace LancamentosFinanceiros.Service.Service
         {
             return await _financeiroRepository.ObterSaldoPorContaAsync(banco, tipoConta, cpfCnpj);
         }
+
+        public async Task<string> ObterTotalLancamentosDiaFormatadoAsync(string banco, string tipoConta, string cpfCnpj)
+        {
+            decimal total = await _financeiroRepository.ObterTotalLancamentosDiaAsync(DateTime.Today, banco, tipoConta, cpfCnpj);
+
+            return total.ToString("C", new System.Globalization.CultureInfo("pt-BR"));
+        }
     }
 }
