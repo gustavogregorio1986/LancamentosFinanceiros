@@ -37,19 +37,16 @@ namespace LancamentosFinanceiros.Data.Repository
 
         public async Task<decimal> ObterSaldoPorContaAsync(string banco, string tipoConta, string cpfCnpj)
         {
-            var hoje = DateTime.Today;
-            Console.WriteLine($"Buscando lançamentos do dia {hoje.ToShortDateString()} para Banco: {banco}, Tipo de Conta: {tipoConta}, Cpf/Cnpj: {cpfCnpj}");
+            DateTime hoje = DateTime.Today;
 
             var saldo = await _db.Financeiros
-                 .Where(f => f.Banco == banco &&
-                             f.Tipo_de_conta == tipoConta &&
-                             f.Cpf_cnpj == cpfCnpj &&
-                             f.Data_Lancamento.Date == hoje)
-                 .SumAsync(f => (decimal?)f.Valor_lancamento) ?? 0m;
+                    .Where(f => f.Banco == banco &&
+                    f.Tipo_de_conta == tipoConta &&
+                    f.Cpf_cnpj == cpfCnpj &&
+                    f.Data_Lancamento.Date == hoje)
+                    .SumAsync(f => (decimal?)f.Valor_lancamento) ?? 0m;
 
-            Console.WriteLine($"Saldo total encontrado: {saldo}");
             return saldo;
-
         }
 
         public async Task<decimal> ObterTotalLancamentosDiaAsync(DateTime data, string banco, string tipoConta, string cpfCnpj)
