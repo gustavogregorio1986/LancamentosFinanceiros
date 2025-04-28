@@ -39,7 +39,7 @@ namespace LancamentosFinanceiros.Service.Service
                 throw new ArgumentException("Financeiro não encontrado.");
             }
 
-            // Atualize os campos com as informações do DTO
+            // Atualize os campos com as informações do DTO para quando fazer alguma alteração aparecer
             financeiro.Banco = financeiroDto.Banco;
             financeiro.Tipo_de_conta = financeiroDto.Tipo_de_conta;
             financeiro.Cpf_cnpj = financeiroDto.Cpf_cnpj;
